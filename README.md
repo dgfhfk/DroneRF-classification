@@ -6,7 +6,7 @@
 
 您可通过以下链接在 Mendeley 上获取 DroneRF 数据库： http://dx.doi.org/10.17632/f4c2b4n755.1
 
-“使用深度学习方法进行基于 RF 的无人机检测和识别：建立大型开源无人机数据库的计划”，未来一代计算机系统，2019 年。https [://doi.org/10.1016/j.future.2019.05.007](https://doi.org/10.1016/j.future.2019.05.007)
+"使用深度学习方法进行基于 RF 的无人机检测和识别：建立大型开源无人机数据库的计划"，未来一代计算机系统，2019 年。https [://doi.org/10.1016/j.future.2019.05.007](https://doi.org/10.1016/j.future.2019.05.007)
 
 ## 文件说明与运行顺序
 
@@ -80,15 +80,15 @@ DroneRF/
   - `Spectrum_[类别].png`：各类别的频谱图
   - `Box_All.png`：所有类别的箱线图对比
 
-### 4. Classification.py
+### 4. Classification_Binary.py
 
-**功能**：使用深度学习方法对RF信号进行分类。
+**功能**：使用深度学习方法对RF信号进行二分类（背景/无人机）。
 
 **输入**：
 - 标记数据路径：`D:\code\dronerf\output\labeled_data\RF_Data.csv`
 
 **输出**：
-- 分类结果路径：`D:\code\dronerf\output\classification_results\`
+- 分类结果路径：`D:\code\drone\dronerf\output\result2\`
 - 输出文件：
   - `confusion_matrix.png`：混淆矩阵
   - `normalized_confusion_matrix.png`：归一化混淆矩阵
@@ -96,7 +96,39 @@ DroneRF/
   - `classification_report.txt`：分类报告
   - `training_curves/`：训练曲线图
 
-### 5. plot_rf_signals.py
+### 5. Classification_FourClass.py
+
+**功能**：使用深度学习方法对RF信号进行四分类（背景/Bebop/AR/Phantom）。
+
+**输入**：
+- 标记数据路径：`D:\code\drone\dronerf\output\labeled_data\RF_Data.csv`
+
+**输出**：
+- 分类结果路径：`D:\code\drone\dronerf\output\result4\`
+- 输出文件：
+  - `confusion_matrix.png`：混淆矩阵
+  - `normalized_confusion_matrix.png`：归一化混淆矩阵
+  - `roc_curve.png`：ROC曲线
+  - `classification_report.txt`：分类报告
+  - `training_curves/`：训练曲线图
+
+### 6. Classification_Detailed.py
+
+**功能**：使用深度学习方法对RF信号进行详细分类（十分类，包括背景/Bebop四种模式/AR四种模式/Phantom）。
+
+**输入**：
+- 标记数据路径：`D:\code\drone\dronerf\output\labeled_data\RF_Data.csv`
+
+**输出**：
+- 分类结果路径：`D:\code\drone\dronerf\output\results\`
+- 输出文件：
+  - `confusion_matrix.png`：混淆矩阵
+  - `normalized_confusion_matrix.png`：归一化混淆矩阵
+  - `roc_curve.png`：ROC曲线
+  - `classification_report.txt`：分类报告
+  - `training_curves/`：训练曲线图
+
+### 7. plot_rf_signals.py
 
 **功能**：从聚合数据生成详细的时域和频域图。
 
@@ -130,7 +162,10 @@ DroneRF/
 1. 运行 `Main_1_Data_aggregation.m` 进行数据聚合
 2. 运行 `Main_2_Data_labeling.m` 进行数据标记
 3. 运行 `Demo_3_Analysis.m` 进行数据分析和可视化
-4. 运行 `Classification.py` 进行数据分类
+4. 根据需要运行以下分类脚本之一：
+   - `Classification_Binary.py` 进行二分类
+   - `Classification_FourClass.py` 进行四分类
+   - `Classification_Detailed.py` 进行详细分类
 5. 运行 `plot_rf_signals.py` 生成详细的信号图
 
 ## 输出目录结构
@@ -147,7 +182,15 @@ output/
 │   ├── TimeDomain_Background.png
 │   ├── Spectrum_Background.png
 │   └── ...
-├── classification_results/
+├── result2/
+│   ├── confusion_matrix.png
+│   ├── roc_curve.png
+│   └── ...
+├── result4/
+│   ├── confusion_matrix.png
+│   ├── roc_curve.png
+│   └── ...
+├── results/
 │   ├── confusion_matrix.png
 │   ├── roc_curve.png
 │   └── ...
